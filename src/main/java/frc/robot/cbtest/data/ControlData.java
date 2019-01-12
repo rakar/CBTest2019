@@ -14,7 +14,7 @@ import org.montclairrobotics.cyborg.core.data.CBStdDriveControlData;
  */
 public class ControlData {
 
-        /**
+    /**
      * Initialize the driveData field with standard drive control data.
      * 
      */
