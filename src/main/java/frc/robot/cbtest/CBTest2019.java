@@ -11,8 +11,14 @@ import org.montclairrobotics.cyborg.Cyborg;
 import org.montclairrobotics.cyborg.core.assemblies.CBDriveModule;
 import org.montclairrobotics.cyborg.core.assemblies.CBSimpleSpeedControllerArray;
 import org.montclairrobotics.cyborg.core.behaviors.CBStdDriveBehavior;
+import org.montclairrobotics.cyborg.core.behaviors.CBTraceAutonomous;
+import org.montclairrobotics.cyborg.core.behaviors.CBTraceBehavior;
+import org.montclairrobotics.cyborg.core.behaviors.CBTraceRule;
 import org.montclairrobotics.cyborg.core.controllers.CBDifferentialDriveController;
+import org.montclairrobotics.cyborg.core.controllers.CBTraceController;
 import org.montclairrobotics.cyborg.core.mappers.CBArcadeDriveMapper;
+import org.montclairrobotics.cyborg.core.mappers.CBTraceSensorMapper;
+import org.montclairrobotics.cyborg.core.mappers.CBTraceTeleOpMapper;
 import org.montclairrobotics.cyborg.core.utils.CB2DVector;
 import org.montclairrobotics.cyborg.core.utils.CBEnums;
 import org.montclairrobotics.cyborg.devices.CBAxis;
@@ -72,38 +78,45 @@ public class CBTest2019 extends Cyborg {
     private void defineDevices() {
         // Configure Hardware Adapter and Devices
         hardwareAdapter = new CBHardwareAdapter(this);
-        CBHardwareAdapter ha = hardwareAdapter;
+        //CBHardwareAdapter ha = hardwareAdapter;
 
         // driver controls
-        driveRotAxis = ha.add(
+        driveRotAxis = hardwareAdapter.add(
             new CBAxis(driveStickID, 1)
                     .setDeadzone(0.1)
         );
 
-        driveFwdAxis = ha.add(
+        driveFwdAxis = hardwareAdapter.add(
             new CBAxis(driveStickID, 0)
                     .setDeadzone(0.1)
         );
 
         // drivetrain
-        dtLeftMotor0 = ha.add(new CBTalonSRX(0));            
-        dtLeftMotor1 = ha.add(new CBTalonSRX(1));            
-        dtLeftMotor2 = ha.add(new CBTalonSRX(2));            
-        dtRightMotor0 = ha.add(new CBTalonSRX(7));            
-        dtRightMotor1 = ha.add(new CBTalonSRX(8));            
-        dtRightMotor2 = ha.add(new CBTalonSRX(9));            
+        dtLeftMotor0 = hardwareAdapter.add(new CBTalonSRX(0));            
+        dtLeftMotor1 = hardwareAdapter.add(new CBTalonSRX(1));            
+        dtLeftMotor2 = hardwareAdapter.add(new CBTalonSRX(2));            
+        dtRightMotor0 = hardwareAdapter.add(new CBTalonSRX(7));            
+        dtRightMotor1 = hardwareAdapter.add(new CBTalonSRX(8));            
+        dtRightMotor2 = hardwareAdapter.add(new CBTalonSRX(9));            
     }
 
     private void defineMappers() {
+        // setup sensor mappers
+        //this.addSensorMapper(new CBTraceSensorMapper(this, "SensorTraceMapper"));
         // setup teleop mappers
+        //this.addTeleOpMapper(new CBTraceTeleOpMapper(this,"TeleopTraceMapper"));
+        
         this.addTeleOpMapper(
                 new CBArcadeDriveMapper(this, requestData.drivetrain)
                         .setAxes(driveFwdAxis, null, driveRotAxis)
                         //.setGyroLockButton(gyroLockButton)
-        );
+                        //.setDebug(true)
+            );
     }
 
     private void defineControllers() {
+        //this.addRobotController(new CBTraceController(this,"traceRobotController"));
+
         this.addRobotController(
             new CBDifferentialDriveController(this, controlData.drivetrain)
                 .addLeftDriveModule(
@@ -130,8 +143,13 @@ public class CBTest2019 extends Cyborg {
     }
 
     private void defineBehaviors() {
+        //this.addBehavior(new CBTraceBehavior(this,"traceBehavior"));
+        //this.addAutonomous(new CBTraceAutonomous(this,"autoTraceBehavior"));
+        //this.addRule(new CBTraceRule(this,"traceRule"));
+
         this.addBehavior(
             new CBStdDriveBehavior(this, requestData.drivetrain, controlData.drivetrain)
+                //.setDebug(true)
         );
     }
     
