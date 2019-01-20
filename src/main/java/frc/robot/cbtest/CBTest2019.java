@@ -7,6 +7,8 @@
 
 package frc.robot.cbtest;
 //#region imports
+
+import com.revrobotics.CANSparkMaxLowLevel;
 import org.montclairrobotics.cyborg.Cyborg;
 import org.montclairrobotics.cyborg.core.assemblies.CBDriveModule;
 import org.montclairrobotics.cyborg.core.assemblies.CBSimpleSpeedControllerArray;
@@ -16,12 +18,19 @@ import org.montclairrobotics.cyborg.core.mappers.CBArcadeDriveMapper;
 import org.montclairrobotics.cyborg.core.utils.CB2DVector;
 import org.montclairrobotics.cyborg.core.utils.CBEnums;
 import org.montclairrobotics.cyborg.devices.CBAxis;
+import org.montclairrobotics.cyborg.devices.CBButton;
+import org.montclairrobotics.cyborg.devices.CBCANSparkMax;
 import org.montclairrobotics.cyborg.devices.CBDeviceID;
 import org.montclairrobotics.cyborg.devices.CBHardwareAdapter;
-import org.montclairrobotics.cyborg.devices.CBTalonSRX;
+import org.montclairrobotics.cyborg.devices.CBNavX;
 
+import edu.wpi.first.wpilibj.SPI;
+import frc.robot.cbtest.behaviors.TwoHatch01;
 import frc.robot.cbtest.data.ControlData;
 import frc.robot.cbtest.data.RequestData;
+import frc.robot.cbtest.mappers.DriverMapper;
+import frc.robot.cbtest.mappers.SensorMapper;
+
 //#endregion
 
 public class CBTest2019 extends Cyborg {
@@ -38,14 +47,20 @@ public class CBTest2019 extends Cyborg {
     // Reusable code, should of course use setter functions to
     // attach to devices.
     //
+
+
+    public static CBHardwareAdapter ha;
     //#region Device List...
     public static CBDeviceID 
     // driver controls
-    driveRotAxis, driveFwdAxis, 
+    driveRotAxisId, driveFwdAxisId, twoHatch01Id,
 
     // drivetrain Motors
-    dtLeftMotor0, dtLeftMotor1, dtLeftMotor2,
-    dtRightMotor0, dtRightMotor1, dtRightMotor2
+    dtLeftMotor0Id, dtLeftMotor1Id, dtLeftMotor2Id,
+    dtRightMotor0Id, dtRightMotor1Id, dtRightMotor2Id,
+
+    // sensors
+    navxId
 
     ;
     //#endregion
@@ -69,47 +84,57 @@ public class CBTest2019 extends Cyborg {
     private void defineDevices() {
         // Configure Hardware Adapter and Devices
         hardwareAdapter = new CBHardwareAdapter(this);
+        ha = hardwareAdapter;
 
         // driver controls
-        driveRotAxis = hardwareAdapter.add(
+        driveRotAxisId = hardwareAdapter.add(
             new CBAxis(driveStickID, 0)
                     .setDeadzone(0.1)
         );
 
-        driveFwdAxis = hardwareAdapter.add(
+        driveFwdAxisId = hardwareAdapter.add(
             new CBAxis(driveStickID, 1)
                     .setDeadzone(0.1)
         );
 
+        twoHatch01Id = hardwareAdapter.add(new CBButton(driveStickID, 0));
+
         // drivetrain
-        dtLeftMotor0 = hardwareAdapter.add(new CBTalonSRX(0));            
-        dtLeftMotor1 = hardwareAdapter.add(
-            new CBTalonSRX(1)
-                .follow(dtLeftMotor0)
+        dtLeftMotor0Id = hardwareAdapter.add(new CBCANSparkMax(0, CANSparkMaxLowLevel.MotorType.kBrushless));            
+        dtLeftMotor1Id = hardwareAdapter.add(
+            new CBCANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless)
+                .follow(dtLeftMotor0Id)
             );            
-        dtLeftMotor2 = hardwareAdapter.add(
-            new CBTalonSRX(2)
-                .follow(dtLeftMotor0)
+        dtLeftMotor2Id = hardwareAdapter.add(
+            new CBCANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless)
+                .follow(dtLeftMotor0Id)
             );            
 
-        dtRightMotor0 = hardwareAdapter.add(new CBTalonSRX(7));            
-        dtRightMotor1 = hardwareAdapter.add(
-            new CBTalonSRX(8)
-                .follow(dtRightMotor0)
+        dtRightMotor0Id = hardwareAdapter.add(new CBCANSparkMax(7, CANSparkMaxLowLevel.MotorType.kBrushless));            
+        dtRightMotor1Id = hardwareAdapter.add(
+            new CBCANSparkMax(8, CANSparkMaxLowLevel.MotorType.kBrushless)
+                .follow(dtRightMotor0Id)
         );            
-        dtRightMotor2 = hardwareAdapter.add(
-            new CBTalonSRX(9)
-                .follow(dtRightMotor0)
+        dtRightMotor2Id = hardwareAdapter.add(
+            new CBCANSparkMax(9, CANSparkMaxLowLevel.MotorType.kBrushless)
+                .follow(dtRightMotor0Id)
         );            
+
+        navxId = hardwareAdapter.add(
+            new CBNavX(SPI.Port.kMXP)
+        );
     }
 
     private void defineMappers() {
         this.addTeleOpMapper(
                 new CBArcadeDriveMapper(this, requestData.drivetrain)
-                        .setAxes(driveFwdAxis, null, driveRotAxis)
+                        .setAxes(driveFwdAxisId, null, driveRotAxisId)
                         //.setGyroLockButton(gyroLockButton)
                         //.setDebug(true)
+                ,
+                new DriverMapper(this)
             );
+        this.addSensorMapper(new SensorMapper(this));
     }
 
     private void defineControllers() {
@@ -120,7 +145,7 @@ public class CBTest2019 extends Cyborg {
                         .addSpeedControllerArray(
                             new CBSimpleSpeedControllerArray()
                                 .setDriveMode(CBEnums.CBDriveMode.Power)
-                                .addSpeedController(dtLeftMotor0)
+                                .addSpeedController(dtLeftMotor0Id)
                                 //.addSpeedController(dtLeftMotor1)
                                 //.addSpeedController(dtLeftMotor2)
                         )
@@ -130,7 +155,7 @@ public class CBTest2019 extends Cyborg {
                         .addSpeedControllerArray(
                             new CBSimpleSpeedControllerArray()
                                 .setDriveMode(CBEnums.CBDriveMode.Power)
-                                .addSpeedController(dtRightMotor0)
+                                .addSpeedController(dtRightMotor0Id)
                                 //.addSpeedController(dtRightMotor1)
                                 //.addSpeedController(dtRightMotor2)
                         )
@@ -140,8 +165,8 @@ public class CBTest2019 extends Cyborg {
 
     private void defineBehaviors() {
         this.addBehavior(
-            new CBStdDriveBehavior(this, requestData.drivetrain, controlData.drivetrain)
-                //.setDebug(true)
+            new CBStdDriveBehavior(this, requestData.drivetrain, controlData.drivetrain),    
+            new TwoHatch01(this)
         );
     }
     
