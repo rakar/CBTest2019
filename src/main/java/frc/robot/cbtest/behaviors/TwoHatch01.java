@@ -20,8 +20,8 @@ public class TwoHatch01 extends CBBehavior {
 
     @Override
     public void update() {
-        if(requestData.doTwoHatch1.getState()) {
-            if(requestData.doTwoHatch1.getRisingEdge()) {
+        if(requestData.doTwoHatch1) {
+            if(requestData.initTwoHatch1) {
                 // init state machine, because it was just pressed
             }
             // process state machine

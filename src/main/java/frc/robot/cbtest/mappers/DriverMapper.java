@@ -13,15 +13,12 @@ import org.montclairrobotics.cyborg.devices.CBButton;
 
 import static frc.robot.cbtest.CBTest2019.*;
 
-/**
- * Add your docs here.
- */
 public class DriverMapper extends CBTeleOpMapper {
     CBButton twoHatch;
 
     public DriverMapper(Cyborg robot) {
         super(robot);
-        twoHatch = ha.getButton(twoHatch01Id);
+        twoHatch = ha.getButton(hal.twoHatch01Id);
     }
 
     @Override
@@ -31,6 +28,7 @@ public class DriverMapper extends CBTeleOpMapper {
 
     @Override
     public void update() {
-        requestData.doTwoHatch1.update(twoHatch.getState());
+        requestData.initTwoHatch1 = twoHatch.getRisingEdge();
+        requestData.doTwoHatch1 = twoHatch.getState();
     }
 }

@@ -21,7 +21,7 @@ public class SensorMapper extends CBSensorMapper {
 
     public SensorMapper(Cyborg robot) {
         super(robot);
-        navx = ha.getNavX(navxId);
+        navx = ha.getNavX(hal.navxId);
     }
 
     @Override

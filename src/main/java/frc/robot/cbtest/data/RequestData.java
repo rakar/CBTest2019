@@ -18,7 +18,8 @@ public class RequestData {
      * Drivetrain
      */
     public CBStdDriveRequestData drivetrain = new CBStdDriveRequestData();
-    public CBEdgeTrigger doTwoHatch1;
+    public boolean doTwoHatch1;
+    public boolean initTwoHatch1;
 
     public double yaw;
 }
