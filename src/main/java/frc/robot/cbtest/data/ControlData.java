@@ -19,5 +19,4 @@ public class ControlData {
      * 
      */
     public CBStdDriveControlData drivetrain = new CBStdDriveControlData();
-
 }

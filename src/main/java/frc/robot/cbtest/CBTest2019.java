@@ -21,7 +21,6 @@ import org.montclairrobotics.cyborg.devices.CBHardwareAdapter;
 import frc.robot.cbtest.behaviors.TwoHatch01;
 import frc.robot.cbtest.data.ControlData;
 import frc.robot.cbtest.data.RequestData;
-import frc.robot.cbtest.hardware.HALCIM;
 import frc.robot.cbtest.hardware.HALNEO;
 import frc.robot.cbtest.mappers.DriverMapper;
 import frc.robot.cbtest.mappers.SensorMapper;
@@ -63,6 +62,7 @@ public class CBTest2019 extends Cyborg {
         this.addTeleOpMapper(
                 new CBArcadeDriveMapper(this, requestData.drivetrain)
                         .setAxes(hal.driveFwdAxisId, null, hal.driveRotAxisId)
+                        .setShifterButtons(hal.driverShiftHi, hal.driverShiftLow)
                         //.setGyroLockButton(gyroLockButton)
                         //.setDebug(true)
                 ,
@@ -74,6 +74,9 @@ public class CBTest2019 extends Cyborg {
     private void defineControllers() {
         this.addRobotController(
             new CBDifferentialDriveController(this, controlData.drivetrain)
+                .addHighGearSolenoid(hal.shiftHighCoil)
+                .addLowGearSolenoid(hal.shiftLowCoil)
+                //.setDefaultToHighGear(false)
                 .addLeftDriveModule(
                     new CBDriveModule(new CB2DVector(-1, 0), 0) 
                         .addSpeedControllerArray(
@@ -94,6 +97,7 @@ public class CBTest2019 extends Cyborg {
                                 //.addSpeedController(dtRightFollow2)
                         )
                 )
+            //,new DrivetrainShifterController(this)    
             );
     }
 
@@ -101,6 +105,7 @@ public class CBTest2019 extends Cyborg {
         this.addBehavior(
             new CBStdDriveBehavior(this, requestData.drivetrain, controlData.drivetrain),    
             new TwoHatch01(this)
+            //,new DrivetrainShifterBehavior(this)
         );
     }
     

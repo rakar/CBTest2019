@@ -13,6 +13,7 @@ import org.montclairrobotics.cyborg.devices.CBAxis;
 import org.montclairrobotics.cyborg.devices.CBButton;
 import org.montclairrobotics.cyborg.devices.CBDeviceID;
 import org.montclairrobotics.cyborg.devices.CBNavX;
+import org.montclairrobotics.cyborg.devices.CBSolenoid;
 import org.montclairrobotics.cyborg.devices.CBTalonSRX;
 
 import edu.wpi.first.wpilibj.SPI;
@@ -23,44 +24,28 @@ import edu.wpi.first.wpilibj.SPI;
 public class HALCIM {
     final int driveStickID = 0;
 
-    public CBDeviceID 
-    driveRotAxisId = hardwareAdapter.add(
-        new CBAxis(driveStickID, 0)
-                .setDeadzone(0.1)
-    ),
-    driveFwdAxisId = hardwareAdapter.add(
-        new CBAxis(driveStickID, 1)
-                .setDeadzone(0.1)
-    ),
+    public CBDeviceID
 
-    twoHatch01Id = hardwareAdapter.add(new CBButton(driveStickID, 0)),
+    driveRotAxisId = hardwareAdapter.add(new CBAxis(driveStickID, 4).setDeadzone(0.1)),
+            driveFwdAxisId = hardwareAdapter.add(new CBAxis(driveStickID, 5).setDeadzone(0.1)),
+            driverShiftHi = hardwareAdapter.add(new CBButton(driveStickID, 6)),
+            driverShiftLow = hardwareAdapter.add(new CBButton(driveStickID, 5)),
 
-    // drivetrain
-    dtLeftMaster = hardwareAdapter.add(
-        new CBTalonSRX(1)),            
-    dtLeftFollow1 = hardwareAdapter.add(
-        new CBTalonSRX(2)
-            .follow(dtLeftMaster,true)
-        ),        
-    dtLeftFollow2 = hardwareAdapter.add(
-        new CBTalonSRX(3)
-            .follow(dtLeftMaster)
-        ),          
+            twoHatch01Id = hardwareAdapter.add(new CBButton(driveStickID, 1)),
 
-    dtRightMaster = hardwareAdapter.add(
-        new CBTalonSRX(7)),          
-    dtRightFollow1 = hardwareAdapter.add(
-        new CBTalonSRX(8)
-            .follow(dtRightMaster,true)
-    ),       
-    dtRightFollow2 = hardwareAdapter.add(
-        new CBTalonSRX(9)
-            .follow(dtRightMaster)
-    ),            
+            // drivetrain
+            dtLeftMaster = hardwareAdapter.add(new CBTalonSRX(1)),
+            dtLeftFollow1 = hardwareAdapter.add(new CBTalonSRX(2).follow(dtLeftMaster, true)),
+            dtLeftFollow2 = hardwareAdapter.add(new CBTalonSRX(3).follow(dtLeftMaster)),
 
-    navxId = hardwareAdapter.add(
-        new CBNavX(SPI.Port.kMXP)
-    );
+            dtRightMaster = hardwareAdapter.add(new CBTalonSRX(7)),
+            dtRightFollow1 = hardwareAdapter.add(new CBTalonSRX(8).follow(dtRightMaster, true)),
+            dtRightFollow2 = hardwareAdapter.add(new CBTalonSRX(9).follow(dtRightMaster)),
+            // Gear Shifters
+            shiftHighCoil = hardwareAdapter.add(new CBSolenoid(0)),
+            shiftLowCoil = hardwareAdapter.add(new CBSolenoid(1)),
 
-    //limeLight = hardwareAdapter.add(new CBContourReport(key));
+            navxId = hardwareAdapter.add(new CBNavX(SPI.Port.kMXP));
+
+    // limeLight = hardwareAdapter.add(new CBContourReport(key));
 }

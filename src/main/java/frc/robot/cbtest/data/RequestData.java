@@ -17,9 +17,10 @@ public class RequestData {
      * Drivetrain
      */
     public CBStdDriveRequestData drivetrain = new CBStdDriveRequestData();
-    
+
     public boolean doTwoHatch1;
     public boolean initTwoHatch1;
 
+    // Sensor Data
     public double yaw;
 }
