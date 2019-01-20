@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.cbtest;
+package frc.robot.cbtest.hardware;
 
 import static org.montclairrobotics.cyborg.Cyborg.hardwareAdapter;
 

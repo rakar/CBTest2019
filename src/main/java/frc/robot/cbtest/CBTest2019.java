@@ -21,6 +21,8 @@ import org.montclairrobotics.cyborg.devices.CBHardwareAdapter;
 import frc.robot.cbtest.behaviors.TwoHatch01;
 import frc.robot.cbtest.data.ControlData;
 import frc.robot.cbtest.data.RequestData;
+import frc.robot.cbtest.hardware.HALCIM;
+import frc.robot.cbtest.hardware.HALNEO;
 import frc.robot.cbtest.mappers.DriverMapper;
 import frc.robot.cbtest.mappers.SensorMapper;
 
@@ -30,8 +32,8 @@ public class CBTest2019 extends Cyborg {
 
     // ha is a shortcut for typing later - like in mappers...
     public static CBHardwareAdapter ha; 
-    //public static HALNEO hal;
-    public static HALCIM hal;
+    public static HALNEO hal;
+    //public static HALCIM hal;
 
     public static RequestData requestData;
     public static ControlData controlData;
@@ -48,8 +50,8 @@ public class CBTest2019 extends Cyborg {
         // HAL... classes are used to 
         // abstract Hardware Configurations
         // between different robots
-        //hal = new HALNEO();
-        hal = new HALCIM();
+        hal = new HALNEO();
+        //hal = new HALCIM();
 
         defineMappers();
         defineControllers();

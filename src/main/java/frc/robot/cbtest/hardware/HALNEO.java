@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.cbtest;
+package frc.robot.cbtest.hardware;
 
 import static org.montclairrobotics.cyborg.Cyborg.hardwareAdapter;
 
@@ -23,19 +23,21 @@ import edu.wpi.first.wpilibj.SPI;
  * Add your docs here.
  */
 public class HALNEO {
+    //final int xbox = 0;
     final int driveStickID = 0;
 
     public CBDeviceID 
+
     driveRotAxisId = hardwareAdapter.add(
-        new CBAxis(driveStickID, 0)
+        new CBAxis(driveStickID, 4)
                 .setDeadzone(0.1)
     ),
     driveFwdAxisId = hardwareAdapter.add(
-        new CBAxis(driveStickID, 1)
+        new CBAxis(driveStickID, 5)
                 .setDeadzone(0.1)
     ),
 
-    twoHatch01Id = hardwareAdapter.add(new CBButton(driveStickID, 0)),
+    twoHatch01Id = hardwareAdapter.add(new CBButton(driveStickID, 1)),
 
     // drivetrain
     dtLeftMaster = hardwareAdapter.add(

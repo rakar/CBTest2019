@@ -9,6 +9,7 @@ package frc.robot.cbtest.mappers;
 
 import org.montclairrobotics.cyborg.Cyborg;
 import org.montclairrobotics.cyborg.core.mappers.CBTeleOpMapper;
+import org.montclairrobotics.cyborg.devices.CBAxis;
 import org.montclairrobotics.cyborg.devices.CBButton;
 
 import static frc.robot.cbtest.CBTest2019.*;
@@ -19,6 +20,7 @@ public class DriverMapper extends CBTeleOpMapper {
     public DriverMapper(Cyborg robot) {
         super(robot);
         twoHatch = ha.getButton(hal.twoHatch01Id);
+
     }
 
     @Override
