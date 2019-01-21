@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.cbtest;
 //#region imports
 
@@ -52,13 +45,13 @@ public class CBTest2019 extends Cyborg {
         hal = new HALNEO();
         //hal = new HALCIM();
 
-        defineMappers();
-        defineControllers();
-        defineBehaviors();
+        installMappers();
+        installControllers();
+        installBehaviors();
 
     }
 
-    private void defineMappers() {
+    private void installMappers() {
         this.addTeleOpMapper(
                 new CBArcadeDriveMapper(this, requestData.drivetrain)
                         .setAxes(hal.driveFwdAxisId, null, hal.driveRotAxisId)
@@ -71,7 +64,7 @@ public class CBTest2019 extends Cyborg {
         this.addSensorMapper(new SensorMapper(this));
     }
 
-    private void defineControllers() {
+    private void installControllers() {
         this.addRobotController(
             new CBDifferentialDriveController(this, controlData.drivetrain)
                 .addHighGearSolenoid(hal.shiftHighCoil)
@@ -97,15 +90,13 @@ public class CBTest2019 extends Cyborg {
                                 //.addSpeedController(dtRightFollow2)
                         )
                 )
-            //,new DrivetrainShifterController(this)    
             );
     }
 
-    private void defineBehaviors() {
+    private void installBehaviors() {
         this.addBehavior(
             new CBStdDriveBehavior(this, requestData.drivetrain, controlData.drivetrain),    
             new TwoHatch01(this)
-            //,new DrivetrainShifterBehavior(this)
         );
     }
     

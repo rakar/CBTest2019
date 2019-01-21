@@ -16,17 +16,14 @@ import static frc.robot.cbtest.CBTest2019.*;
  * Add your docs here.
  */
 public class SensorMapper extends CBSensorMapper {
-    //RequestData rd;
-    CBNavX navx;
+    CBNavX navx = ha.getNavX(hal.navxId);
 
     public SensorMapper(Cyborg robot) {
         super(robot);
-        navx = ha.getNavX(hal.navxId);
     }
 
     @Override
     public void init() {
-
     }
 
     @Override

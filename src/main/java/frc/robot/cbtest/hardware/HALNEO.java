@@ -11,6 +11,7 @@ import static org.montclairrobotics.cyborg.Cyborg.hardwareAdapter;
 
 import com.revrobotics.CANSparkMaxLowLevel;
 
+import org.montclairrobotics.cyborg.core.utils.CBNetworkTable;
 import org.montclairrobotics.cyborg.devices.CBAxis;
 import org.montclairrobotics.cyborg.devices.CBButton;
 import org.montclairrobotics.cyborg.devices.CBCANSparkMax;
@@ -34,6 +35,7 @@ public class HALNEO {
     driverShiftLow = hardwareAdapter.add(new CBButton(driveStickID, 5)),
 
     twoHatch01Id = hardwareAdapter.add(new CBButton(driveStickID, 1)),
+    alignToVision = hardwareAdapter.add(new CBButton(driveStickID, 2)),
 
     // drivetrain
     dtLeftMaster = hardwareAdapter.add(new CBCANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless)),
@@ -54,4 +56,5 @@ public class HALNEO {
     navxId = hardwareAdapter.add(new CBNavX(SPI.Port.kMXP));
 
     // limeLight = hardwareAdapter.add(new CBContourReport(key));
+    CBNetworkTable limelight = new CBNetworkTable("...");
 }
