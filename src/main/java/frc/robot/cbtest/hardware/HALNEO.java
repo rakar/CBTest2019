@@ -36,6 +36,7 @@ public class HALNEO {
 
     twoHatch01Id = hardwareAdapter.add(new CBButton(driveStickID, 1)),
     alignToVision = hardwareAdapter.add(new CBButton(driveStickID, 2)),
+    chaseVision = hardwareAdapter.add(new CBButton(driveStickID, 3)),
 
     // drivetrain
     dtLeftMaster = hardwareAdapter.add(new CBCANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless)),
@@ -56,5 +57,5 @@ public class HALNEO {
     navxId = hardwareAdapter.add(new CBNavX(SPI.Port.kMXP));
 
     // limeLight = hardwareAdapter.add(new CBContourReport(key));
-    CBNetworkTable limelight = new CBNetworkTable("...");
+    CBNetworkTable limelight = new CBNetworkTable("limelight");
 }

@@ -21,7 +21,8 @@ public class DriveTeleOp extends CBStdDriveBehavior {
     CBEntrySource validTarget = limelight.getEntrySource("tV");
     CBPIDErrorCorrection visionXCorrection = 
         new CBPIDErrorCorrection()
-            .setConstants(0.4,0.0,0.0)
+            .setTarget()
+            .setConstants(0.4, 0.0, 0.0)
             .setSource(xPos);
 
     public DriveTeleOp(Cyborg robot, CBStdDriveRequestData requestData, CBStdDriveControlData controlData) {
@@ -31,13 +32,22 @@ public class DriveTeleOp extends CBStdDriveBehavior {
     @Override
     public void update() {
         super.update();
-        if(requestData.alignToVisionTarget.getState() && validTarget.get()>.5) {
-            if(requestData.alignToVisionTarget.getRisingEdge()) {
+        if (requestData.alignToVisionTarget.getState() && validTarget.get() > .5) {
+            if (requestData.alignToVisionTarget.getRisingEdge()) {
                 visionXCorrection.reset();
             }
             dcd.active = true;
-            dcd.direction = new CB2DVector(0,0);
+            dcd.direction = new CB2DVector(0, 0);
             dcd.rotation = visionXCorrection.update();
+        } else {
+            if (requestData.chaseVisionTarget.getState() && validTarget.get() > .5) {
+                if (requestData.chaseVisionTarget.getRisingEdge()) {
+                    visionXCorrection.reset();
+                }
+                dcd.active = true;
+                dcd.direction = new CB2DVector(0, 0.3);
+                dcd.rotation = visionXCorrection.update();
+            }
         }
     }
 }

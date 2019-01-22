@@ -13,8 +13,8 @@ public class RequestData {
     public CBStdDriveRequestData drivetrain = new CBStdDriveRequestData();
 
     public CBEdgeTrigger doTwoHatch1;
-
     public CBEdgeTrigger alignToVisionTarget;
+    public CBEdgeTrigger chaseVisionTarget;
 
     // Sensor Data
     public double yaw;

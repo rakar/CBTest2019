@@ -17,6 +17,7 @@ public class DriverMapper extends CBTeleOpMapper {
     public void init() {
         requestData.doTwoHatch1 = ha.getButton(hal.twoHatch01Id);
         requestData.alignToVisionTarget = ha.getButton(hal.alignToVision);
+        requestData.chaseVisionTarget = ha.getButton(hal.chaseVision);
     }
 
     @Override
