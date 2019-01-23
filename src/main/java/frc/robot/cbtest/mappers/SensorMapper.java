@@ -9,7 +9,11 @@ package frc.robot.cbtest.mappers;
 
 import org.montclairrobotics.cyborg.Cyborg;
 import org.montclairrobotics.cyborg.core.mappers.CBSensorMapper;
+import org.montclairrobotics.cyborg.devices.CBEncoder;
 import org.montclairrobotics.cyborg.devices.CBNavX;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import static frc.robot.cbtest.CBTest2019.*;
 
 /**
@@ -17,6 +21,8 @@ import static frc.robot.cbtest.CBTest2019.*;
  */
 public class SensorMapper extends CBSensorMapper {
     CBNavX navx = ha.getNavX(hal.navxId);
+    CBEncoder encLeft = ha.getEncoder(hal.encoderLeft);
+    CBEncoder encRight = ha.getEncoder(hal.encoderRight);
 
     public SensorMapper(Cyborg robot) {
         super(robot);
@@ -29,6 +35,20 @@ public class SensorMapper extends CBSensorMapper {
     @Override
     public void update() {
         requestData.yaw = navx.getYaw();
+
+        SmartDashboard.putNumber("NavX Angle", navx.getAngle());
+        SmartDashboard.putNumber("Navx DisplaceX", navx.getDisplacementX());
+        SmartDashboard.putNumber("Navx DisplaceY", navx.getDisplacementY());
+        SmartDashboard.putNumber("Navx DisplaceZ", navx.getDisplacementZ());
+        SmartDashboard.putNumber("Navx Accel X", navx.getRawAccelX());
+        SmartDashboard.putNumber("Navx Accel Y", navx.getRawAccelY());
+        SmartDashboard.putNumber("Navx Accel Z", navx.getRawAccelZ());
+        SmartDashboard.putNumber("Navx World X", navx.getWorldLinearAccelX());
+        SmartDashboard.putNumber("Navx World Y", navx.getWorldLinearAccelY());
+        SmartDashboard.putNumber("Navx World Z", navx.getWorldLinearAccelZ());
+
+        SmartDashboard.putNumber("Encoder Left ", encLeft.getDistance());
+        SmartDashboard.putNumber("Encoder Right", encRight.getDistance());
     }
 
 }
