@@ -1,28 +1,28 @@
 package frc.robot.cbtest.behaviors;
 
-import static frc.robot.cbtest.CBTest2019.requestData;
+import static frc.robot.cbtest.CBTest2019.*;
 
 import org.montclairrobotics.cyborg.Cyborg;
 import org.montclairrobotics.cyborg.core.behaviors.CBStdDriveBehavior;
 import org.montclairrobotics.cyborg.core.data.CBStdDriveControlData;
 import org.montclairrobotics.cyborg.core.data.CBStdDriveRequestData;
 import org.montclairrobotics.cyborg.core.utils.CB2DVector;
-import org.montclairrobotics.cyborg.core.utils.CBNetworkTable;
-import org.montclairrobotics.cyborg.core.utils.CBNetworkTable.CBEntrySource;
 import org.montclairrobotics.cyborg.core.utils.CBPIDErrorCorrection;
+import org.montclairrobotics.cyborg.devices.CBNetworkTable;
+import org.montclairrobotics.cyborg.devices.CBNetworkTable.CBEntrySource;
 
 /**
  * Add your docs here.
  */
 public class DriveTeleOp extends CBStdDriveBehavior {
-    CBNetworkTable limelight = new CBNetworkTable("limelight");
+    CBNetworkTable limelight = ha.getNetworkTable(hal.limelight);
     CBEntrySource xPos = limelight.getEntrySource("tX");
     CBEntrySource yPos = limelight.getEntrySource("tY");
     CBEntrySource validTarget = limelight.getEntrySource("tV");
     CBPIDErrorCorrection visionXCorrection = 
         new CBPIDErrorCorrection()
             .setTarget()
-            .setConstants(0.4, 0.0, 0.0)
+            .setConstants(0.3, 0.0, 0.0)
             .setSource(xPos);
 
     public DriveTeleOp(Cyborg robot, CBStdDriveRequestData requestData, CBStdDriveControlData controlData) {

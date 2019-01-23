@@ -12,13 +12,13 @@ import static org.montclairrobotics.cyborg.Cyborg.hardwareAdapter;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.revrobotics.CANSparkMaxLowLevel;
 
-import org.montclairrobotics.cyborg.core.utils.CBNetworkTable;
 import org.montclairrobotics.cyborg.devices.CBAxis;
 import org.montclairrobotics.cyborg.devices.CBButton;
 import org.montclairrobotics.cyborg.devices.CBCANSparkMax;
 import org.montclairrobotics.cyborg.devices.CBDeviceID;
 import org.montclairrobotics.cyborg.devices.CBEncoder;
 import org.montclairrobotics.cyborg.devices.CBNavX;
+import org.montclairrobotics.cyborg.devices.CBNetworkTable;
 import org.montclairrobotics.cyborg.devices.CBSolenoid;
 
 import edu.wpi.first.wpilibj.SPI;
@@ -57,9 +57,7 @@ public class HALNEO {
     shiftLowCoil = hardwareAdapter.add(new CBSolenoid(1)),
     encoderLeft = hardwareAdapter.add(new CBEncoder(dtLeftMaster, FeedbackDevice.QuadEncoder, false, 1)),
     encoderRight = hardwareAdapter.add(new CBEncoder(dtRightMaster, FeedbackDevice.QuadEncoder, false, 1)),
-
-    navxId = hardwareAdapter.add(new CBNavX(SPI.Port.kMXP));
-
-    // limeLight = hardwareAdapter.add(new CBContourReport(key));
-    CBNetworkTable limelight = new CBNetworkTable("limelight");
+    navxId = hardwareAdapter.add(new CBNavX(SPI.Port.kMXP)),
+    limelight = hardwareAdapter.add(new CBNetworkTable("limelight"))
+    ;
 }
