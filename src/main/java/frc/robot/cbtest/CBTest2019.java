@@ -3,11 +3,10 @@ package frc.robot.cbtest;
 
 import org.montclairrobotics.cyborg.Cyborg;
 import org.montclairrobotics.cyborg.core.assemblies.CBDriveModule;
-import org.montclairrobotics.cyborg.core.assemblies.CBSimpleSpeedControllerArray;
+import org.montclairrobotics.cyborg.core.assemblies.CBSmartSpeedControllerArray;
 import org.montclairrobotics.cyborg.core.controllers.CBDifferentialDriveController;
 import org.montclairrobotics.cyborg.core.mappers.CBArcadeDriveMapper;
 import org.montclairrobotics.cyborg.core.utils.CB2DVector;
-import org.montclairrobotics.cyborg.core.utils.CBEnums;
 import org.montclairrobotics.cyborg.devices.CBHardwareAdapter;
 
 import frc.robot.cbtest.behaviors.DriveTeleOp;
@@ -73,21 +72,15 @@ public class CBTest2019 extends Cyborg {
                 .addLeftDriveModule(
                     new CBDriveModule(new CB2DVector(-1, 0), 0) 
                         .addSpeedControllerArray(
-                            new CBSimpleSpeedControllerArray()
-                                .setDriveMode(CBEnums.CBDriveMode.Power)
+                            new CBSmartSpeedControllerArray()
                                 .addSpeedController(hal.dtLeftMaster)
-                                //.addSpeedController(dtLeftFollow1)
-                                //.addSpeedController(dtLeftFollow2)
                         )
                 )
                 .addRightDriveModule(
                     new CBDriveModule(new CB2DVector(1, 0), 180) 
                         .addSpeedControllerArray(
-                            new CBSimpleSpeedControllerArray()
-                                .setDriveMode(CBEnums.CBDriveMode.Power)
+                            new CBSmartSpeedControllerArray()
                                 .addSpeedController(hal.dtRightMaster)
-                                //.addSpeedController(dtRightFollow1)
-                                //.addSpeedController(dtRightFollow2)
                         )
                 )
             );

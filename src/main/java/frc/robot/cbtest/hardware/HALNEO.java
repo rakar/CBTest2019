@@ -40,14 +40,22 @@ public class HALNEO {
     alignToVision = hardwareAdapter.add(new CBButton(driveStickID, 2)),
     chaseVision = hardwareAdapter.add(new CBButton(driveStickID, 3)),
 
+
+
     // drivetrain
-    dtLeftMaster = hardwareAdapter.add(new CBCANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless)),
+    dtLeftMaster = hardwareAdapter.add(
+            new CBCANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless)
+                .setPIDConstants(0.00002, 0, 0)
+            ),
     dtLeftFollow1 = hardwareAdapter
             .add(new CBCANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless).follow(dtLeftMaster, true)),
     dtLeftFollow2 = hardwareAdapter
             .add(new CBCANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushless).follow(dtLeftMaster)),
 
-    dtRightMaster = hardwareAdapter.add(new CBCANSparkMax(4, CANSparkMaxLowLevel.MotorType.kBrushless)),
+    dtRightMaster = hardwareAdapter.add(
+            new CBCANSparkMax(4, CANSparkMaxLowLevel.MotorType.kBrushless)
+                .setPIDConstants(0.00002, 0, 0)
+            ),
     dtRightFollow1 = hardwareAdapter
             .add(new CBCANSparkMax(5, CANSparkMaxLowLevel.MotorType.kBrushless).follow(dtRightMaster, true)),
     dtRightFollow2 = hardwareAdapter
@@ -59,5 +67,7 @@ public class HALNEO {
     encoderRight = hardwareAdapter.add(new CBEncoder(dtRightMaster, FeedbackDevice.QuadEncoder, false, 1)),
     navxId = hardwareAdapter.add(new CBNavX(SPI.Port.kMXP)),
     limelight = hardwareAdapter.add(new CBNetworkTable("limelight"))
+
     ;
+
 }

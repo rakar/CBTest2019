@@ -1,12 +1,12 @@
 package frc.robot.cbtest.behaviors;
 
-import static frc.robot.cbtest.CBTest2019.*;
+import static frc.robot.cbtest.CBTest2019.ha;
+import static frc.robot.cbtest.CBTest2019.hal;
 
 import org.montclairrobotics.cyborg.Cyborg;
 import org.montclairrobotics.cyborg.core.behaviors.CBStdDriveBehavior;
 import org.montclairrobotics.cyborg.core.data.CBStdDriveControlData;
 import org.montclairrobotics.cyborg.core.data.CBStdDriveRequestData;
-import org.montclairrobotics.cyborg.core.utils.CB2DVector;
 import org.montclairrobotics.cyborg.core.utils.CBPIDErrorCorrection;
 import org.montclairrobotics.cyborg.devices.CBNetworkTable;
 import org.montclairrobotics.cyborg.devices.CBNetworkTable.CBEntrySource;
@@ -32,6 +32,8 @@ public class DriveTeleOp extends CBStdDriveBehavior {
     @Override
     public void update() {
         super.update();
+
+        /*
         if (requestData.alignToVisionTarget.getState() && validTarget.get() > .5) {
             if (requestData.alignToVisionTarget.getRisingEdge()) {
                 visionXCorrection.reset();
@@ -49,5 +51,6 @@ public class DriveTeleOp extends CBStdDriveBehavior {
                 dcd.rotation = visionXCorrection.update();
             }
         }
+        */
     }
 }
