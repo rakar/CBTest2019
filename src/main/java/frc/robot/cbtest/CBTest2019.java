@@ -7,6 +7,7 @@ import org.montclairrobotics.cyborg.core.assemblies.CBSmartSpeedControllerArray;
 import org.montclairrobotics.cyborg.core.controllers.CBDifferentialDriveController;
 import org.montclairrobotics.cyborg.core.mappers.CBArcadeDriveMapper;
 import org.montclairrobotics.cyborg.core.utils.CB2DVector;
+import org.montclairrobotics.cyborg.core.utils.CBEnums.CBMotorControlMode;
 import org.montclairrobotics.cyborg.devices.CBHardwareAdapter;
 
 import frc.robot.cbtest.behaviors.DriveTeleOp;
@@ -35,6 +36,8 @@ public class CBTest2019 extends Cyborg {
         requestData = new RequestData();
         controlData = new ControlData();
 
+        requestData.drivetrain.motorControlMode = CBMotorControlMode.PERCENTAGEOUTPUT;
+
         hardwareAdapter = new CBHardwareAdapter(this);
         ha = hardwareAdapter; // typing shortcut...
 
@@ -51,14 +54,16 @@ public class CBTest2019 extends Cyborg {
     }
 
     private void installMappers() {
+        CBArcadeDriveMapper adm =  new CBArcadeDriveMapper(this, requestData.drivetrain)
+            .setAxes(hal.driveFwdAxisId, null, hal.driveRotAxisId)
+            .setShifterButtons(hal.driverShiftHi, hal.driverShiftLow)
+            //.setGyroLockButton(gyroLockButton)
+            //.setDebug(true)
+            ;
+
         this.addTeleOpMapper(
-                new CBArcadeDriveMapper(this, requestData.drivetrain)
-                        .setAxes(hal.driveFwdAxisId, null, hal.driveRotAxisId)
-                        .setShifterButtons(hal.driverShiftHi, hal.driverShiftLow)
-                        //.setGyroLockButton(gyroLockButton)
-                        //.setDebug(true)
-                ,
-                new DriverMapper(this)
+                new DriverMapper(this, adm),
+                adm               
             );
         this.addSensorMapper(new SensorMapper(this));
     }

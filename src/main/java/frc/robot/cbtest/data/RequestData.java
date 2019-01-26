@@ -18,4 +18,5 @@ public class RequestData {
 
     // Sensor Data
     public double yaw;
+    
 }
