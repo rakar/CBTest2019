@@ -7,6 +7,7 @@
 
 package frc.robot.cbtest.data;
 
+import org.montclairrobotics.cyborg.core.data.CBLiftControlData;
 import org.montclairrobotics.cyborg.core.data.CBStdDriveControlData;
 
 /**
@@ -19,4 +20,5 @@ public class ControlData {
      * 
      */
     public CBStdDriveControlData drivetrain = new CBStdDriveControlData();
+    public CBLiftControlData lift = new CBLiftControlData();
 }

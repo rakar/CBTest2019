@@ -30,7 +30,7 @@ public class DriverMapper extends CBTeleOpMapper {
 
     @Override
     public void update() {
-        double fullscale = 100*42*60; // 100 revs/sec * 42 ticks * 60 sec/min
+        double fullscale = 10*42*60; // 100 revs/sec * 42 ticks * 60 sec/min
 
         if (requestData.alignToVisionTarget.getState()) {
             requestData.drivetrain.motorControlMode = CBMotorControlMode.VELOCITY;

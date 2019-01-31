@@ -73,7 +73,7 @@ public class CBTest2019 extends Cyborg {
             new CBDifferentialDriveController(this, controlData.drivetrain)
                 .addHighGearSolenoid(hal.shiftHighCoil)
                 .addLowGearSolenoid(hal.shiftLowCoil)
-                //.setDefaultToHighGear(false)
+                .setDefaultToHighGear(true)
                 .addLeftDriveModule(
                     new CBDriveModule(new CB2DVector(-1, 0), 0) 
                         .addSpeedControllerArray(

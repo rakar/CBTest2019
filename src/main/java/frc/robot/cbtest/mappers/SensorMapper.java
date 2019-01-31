@@ -7,17 +7,18 @@
 
 package frc.robot.cbtest.mappers;
 
+import static frc.robot.cbtest.CBTest2019.ha;
+import static frc.robot.cbtest.CBTest2019.hal;
+import static frc.robot.cbtest.CBTest2019.requestData;
+
 import org.montclairrobotics.cyborg.Cyborg;
 import org.montclairrobotics.cyborg.core.mappers.CBSensorMapper;
 import org.montclairrobotics.cyborg.core.utils.CBGameMode;
 import org.montclairrobotics.cyborg.core.utils.CBTimingController;
-import org.montclairrobotics.cyborg.devices.CBCANSparkMax;
 import org.montclairrobotics.cyborg.devices.CBEncoder;
 import org.montclairrobotics.cyborg.devices.CBNavX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import static frc.robot.cbtest.CBTest2019.*;
 
 public class SensorMapper extends CBSensorMapper {
     CBNavX navx = ha.getNavX(hal.navxId);
